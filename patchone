@@ -1,0 +1,44 @@
+class Venda:
+    def __init__(self, produto, quantidade, valor):
+        self.produto = produto
+        self.quantidade = quantidade
+        self.valor = valor  # O valor já é o total da venda, sem multiplicação pela quantidade.
+
+class Categoria:
+    def __init__(self, nome):
+        self.nome = nome
+        self.vendas = []
+
+    def adicionar_venda(self, venda):
+        """Adiciona uma venda à lista de vendas da categoria."""
+        self.vendas.append(venda)
+
+    def total_vendas(self):
+        """Calcula e retorna o total das vendas na categoria."""
+        total = sum(venda.valor for venda in self.vendas)  # Soma dos valores totais
+        return total
+
+def main():
+    categorias = []
+
+    # Simulação de dados de entrada (sem interação para facilitar o teste)
+    dados_entrada = [
+        ("Eletrônicos", [("Celular", 5, 1000), ("Fone de Ouvido", 10, 500)]),
+        ("Móveis", [("Mesa", 2, 800), ("Cadeira", 4, 400)])
+    ]
+
+    for nome_categoria, vendas in dados_entrada:
+        categoria = Categoria(nome_categoria)
+        for produto, quantidade, valor in vendas:
+            venda = Venda(produto, quantidade, valor)
+            categoria.adicionar_venda(venda)
+        categorias.append(categoria)
+
+    # Exibindo os totais de vendas para cada categoria
+    print("\nRelatório de vendas por categoria:")
+    for categoria in categorias:
+        total = categoria.total_vendas()
+        print(f"Vendas em {categoria.nome}: {total:.1f}")
+
+if __name__ == "__main__":
+    main()
